@@ -1,6 +1,10 @@
 import torch
 
 def ranking_lossT(logitsT, labelsT):
+    """
+    logitsT: is the output embeddings where shape is (b,e), b is the batch and e is the embedings shape, eg: (128,512)
+    labelsT: onehot embedding of labels
+    """
     eps = 1e-8
     subset_idxT = torch.sum(torch.abs(labelsT),dim=0)
     subset_idxT = (subset_idxT>0).nonzero().view(-1).long().cuda()
